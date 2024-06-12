@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsup app.ts"
+    "build": "tsup app.ts",
+    "start": "node dist/app.js"
   },
   "keywords": [],
   "author": "",

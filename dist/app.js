@@ -69,7 +69,8 @@ var generateDayRange = (start, end) => {
 };
 
 // libs/createWeeklyPage.ts
-import_dotenv.default.config();
+var import_path = __toESM(require("path"));
+import_dotenv.default.config({ path: import_path.default.resolve(__dirname, ".env") });
 import_dayjs2.default.extend(import_isoWeek2.default);
 import_dayjs2.default.extend(import_customParseFormat2.default);
 var notion = new import_client.Client({ auth: process.env.NOTION_API_KEY });
@@ -103,13 +104,13 @@ var addContentToPage = async (pageId, headers, firstRow) => {
     children: [
       {
         object: "block",
-        type: "heading_3",
-        heading_3: {
+        type: "heading_2",
+        heading_2: {
           rich_text: [
             {
               type: "text",
               text: {
-                content: "Habit Tracker (System 1)"
+                content: "Habit Tracker"
               }
             }
           ]
@@ -153,86 +154,79 @@ var addContentToPage = async (pageId, headers, firstRow) => {
     children: [
       {
         object: "block",
-        type: "column_list",
-        column_list: {
-          children: [
+        type: "heading_2",
+        heading_2: {
+          rich_text: [
             {
-              object: "block",
-              type: "column",
-              column: {
-                children: [
-                  {
-                    object: "block",
-                    type: "heading_3",
-                    heading_3: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: "TODO (System 2)"
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    object: "block",
-                    type: "to_do",
-                    to_do: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: "Task"
-                          }
-                        }
-                      ],
-                      checked: false
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              object: "block",
-              type: "column",
-              column: {
-                children: [
-                  {
-                    object: "block",
-                    type: "heading_3",
-                    heading_3: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: "JOURNAL"
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  //@ts-ignore
-                  ...firstRow.map((v) => ({
-                    object: "block",
-                    type: "bulleted_list_item",
-                    bulleted_list_item: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: v
-                          }
-                        }
-                      ]
-                    }
-                  }))
-                ]
+              type: "text",
+              text: {
+                content: "TODO"
               }
             }
           ]
         }
-      }
+      },
+      {
+        object: "block",
+        type: "divider",
+        divider: {}
+      },
+      {
+        object: "block",
+        type: "to_do",
+        to_do: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: "Task"
+              }
+            }
+          ],
+          checked: false
+        }
+      },
+      {
+        object: "block",
+        type: "paragraph",
+        paragraph: {
+          rich_text: []
+        }
+      },
+      {
+        object: "block",
+        type: "heading_2",
+        heading_2: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: "JOURNAL"
+              }
+            }
+          ]
+        }
+      },
+      {
+        object: "block",
+        type: "divider",
+        divider: {}
+      },
+      //@ts-ignore
+      ...firstRow.map((v) => ({
+        object: "block",
+        type: "bulleted_list_item",
+        bulleted_list_item: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: v
+              }
+            }
+          ]
+        }
+      }))
     ]
   });
 };
@@ -240,7 +234,8 @@ var addContentToPage = async (pageId, headers, firstRow) => {
 // libs/updateMentionsInBlock.ts
 var import_client2 = require("@notionhq/client");
 var dotenv2 = __toESM(require("dotenv"));
-dotenv2.config();
+var import_path2 = __toESM(require("path"));
+dotenv2.config({ path: import_path2.default.resolve(__dirname, ".env") });
 var notion2 = new import_client2.Client({ auth: process.env.NOTION_API_KEY });
 var getBlocks = async (blockId) => {
   const response = await notion2.blocks.children.list({

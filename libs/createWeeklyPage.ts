@@ -4,8 +4,9 @@ import isoWeek from "dayjs/plugin/isoWeek";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dotenv from "dotenv";
 import { getWeeklyPageTitle } from "./getWeeklyPageTitle";
+import path from "path";
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 dayjs.extend(isoWeek);
 dayjs.extend(customParseFormat);
 
@@ -48,13 +49,13 @@ export const addContentToPage = async (
     children: [
       {
         object: "block",
-        type: "heading_3",
-        heading_3: {
+        type: "heading_2",
+        heading_2: {
           rich_text: [
             {
               type: "text",
               text: {
-                content: "Habit Tracker (System 1)",
+                content: "Habit Tracker",
               },
             },
           ],
@@ -103,86 +104,79 @@ export const addContentToPage = async (
     children: [
       {
         object: "block",
-        type: "column_list",
-        column_list: {
-          children: [
+        type: "heading_2",
+        heading_2: {
+          rich_text: [
             {
-              object: "block",
-              type: "column",
-              column: {
-                children: [
-                  {
-                    object: "block",
-                    type: "heading_3",
-                    heading_3: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: "TODO (System 2)",
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    object: "block",
-                    type: "to_do",
-                    to_do: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: "Task",
-                          },
-                        },
-                      ],
-                      checked: false,
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              object: "block",
-              type: "column",
-              column: {
-                children: [
-                  {
-                    object: "block",
-                    type: "heading_3",
-                    heading_3: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: "JOURNAL",
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  //@ts-ignore
-                  ...firstRow.map((v) => ({
-                    object: "block",
-                    type: "bulleted_list_item",
-                    bulleted_list_item: {
-                      rich_text: [
-                        {
-                          type: "text",
-                          text: {
-                            content: v,
-                          },
-                        },
-                      ],
-                    },
-                  })),
-                ],
+              type: "text",
+              text: {
+                content: "TODO",
               },
             },
           ],
         },
       },
+      {
+        object: "block",
+        type: "divider",
+        divider: {},
+      },
+      {
+        object: "block",
+        type: "to_do",
+        to_do: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: "Task",
+              },
+            },
+          ],
+          checked: false,
+        },
+      },
+      {
+        object: "block",
+        type: "paragraph",
+        paragraph: {
+          rich_text: [],
+        },
+      },
+      {
+        object: "block",
+        type: "heading_2",
+        heading_2: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: "JOURNAL",
+              },
+            },
+          ],
+        },
+      },
+      {
+        object: "block",
+        type: "divider",
+        divider: {},
+      },
+      //@ts-ignore
+      ...firstRow.map((v) => ({
+        object: "block",
+        type: "bulleted_list_item",
+        bulleted_list_item: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: v,
+              },
+            },
+          ],
+        },
+      })),
     ],
   });
 };
